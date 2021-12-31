@@ -1,0 +1,22 @@
+{
+  "name": "graphics-card-bot",
+  "version": "1.0.0",
+  "description": "Bot to purchase graphics card",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Desarso/Graphics-card-bot.git"
+  },
+  "author": "Desarso",
+  "license": "ISC",
+  "dependencies": {
+    "puppeteer": "^13.0.0"
+  },
+  "bugs": {
+    "url": "https://github.com/Desarso/Graphics-card-bot/issues"
+  },
+  "homepage": "https://github.com/Desarso/Graphics-card-bot#readme"
+}
