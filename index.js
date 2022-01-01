@@ -2,16 +2,17 @@ const puppeteer =require('puppeteer');
 const { threadId } = require('worker_threads');
 const fs = require('fs').promises;
 //let url = 'https://www.bestbuy.com/site/nvidia-geforce-rtx-3070-8gb-gddr6-pci-express-4-0-graphics-card-dark-platinum-and-black/6429442.p?skuId=6429442'
-let url = "https://www.google.com/"
+// let url = "https://www.google.com/"
+let url = "https://www.bestbuy.com/site/hot-wheels-worldwide-basic-car-styles-may-vary/6151804.p?skuId=6151804"
 
  const mainFunction = async (url) => {
     const browser = await puppeteer.launch({
-        headless: true,
+        headless: false,
         //  args: ['--single-process','--no-zygote','--no-sandbox']
         args: [`--window-size=1920,1080`],
         defaultViewport: {
-          width:1920,
-          height:1080
+          width:1250,
+          height:1200
         }
     });
     const page = await browser.newPage();
@@ -76,13 +77,21 @@ let url = "https://www.google.com/"
     if (inStockState === "Add to Cart"){
         console.log("hell yeah bitches");
         await page.waitForSelector('.fulfillment-add-to-cart-button div div button');
-        await page.waitFor(500);
+        await page.waitForTimeout(500);
         await page.click('.fulfillment-add-to-cart-button div div button');
-        console.log('clicked')
-        await page.evaluate(() => window.stop());
-        await browser.close();
-        // await page.close();
-        // await browser.close();
+        console.log('added to cart');
+        await page.waitForSelector('.order-summary__checkout-buttons-container div div button');
+        await page.waitForTimeout(500);
+        await page.click('.order-summary__checkout-buttons-container div div button');
+        console.log("going to checkout");
+        await page.waitForSelector('#fld-e');
+        await page.type('#fld-e','malek.gabriel33@gmail.com');
+        await page.waitForSelector('#fld-p1');
+        await page.type('#fld-p1','Costillas1');
+        await page.waitForSelector('.c-button.c-button-secondary.c-button-lg.c-button-block.c-button-icon.c-button-icon-leading.cia-form__controls__submit');
+        await page.click('.c-button.c-button-secondary.c-button-lg.c-button-block.c-button-icon.c-button-icon-leading.cia-form__controls__submit');
+        await page.waitForSelector('.button--continue button');
+        await page.click('.button--continue button');
     }else { 
         console.log("sad face");
         mainFunction(url);
